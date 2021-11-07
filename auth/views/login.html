@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form>
+  <label for="email">
+    <p>email</p>
+    <input id="email" type="text" name="email">
+  </label>
+
+  <label for="password">
+    <p>password</p>
+    <input id="password" type="password" name="password">
+  </label>
+
+  <p>
+    <button>Login</button>
+  </p>
+
+  <script>
+    function handleSubmit(event) {
+      event.preventDefault();
+
+      const data = new FormData(event.target);
+      const values = Object.fromEntries(data.entries());
+
+      fetch('/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(values)
+      }).then(() => {
+      }).catch((err) => {
+        console.error(err)
+      })
+
+    }
+
+    const form = document.querySelector('form');
+    form.addEventListener('submit', handleSubmit);
+  </script>
+</form>
+{% endblock %}
